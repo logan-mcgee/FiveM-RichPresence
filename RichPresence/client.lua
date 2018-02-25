@@ -44,9 +44,9 @@ Citizen.CreateThread(function()
 				if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) and GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 25.0 and KT>90 then
 					SetRichPresence("Flying over "..StreetName.." in a "..VehName)
 				elseif IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) and GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) <= 25.0 and KT < 90 and KT>40 and GetLandingGearState(GetVehiclePedIsIn(PlayerPedId(), false)) == 0 then
-					SetRichPresence("Landing at "..StreetName.." in a "..VehName..", touchdown speed:" .. KT)
+					SetRichPresence("Landing at "..StreetName.." in a "..VehName)
 				elseif GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) <= 25.0 and KT >= 90 and KT < 120 and GetLandingGearState(GetVehiclePedIsIn(PlayerPedId())) == 0 then
-					SetRichPresence("Taking off at "..StreetName.." in a "..VehName..", V1 speed:" .. KT)
+					SetRichPresence("Taking off at "..StreetName.." in a "..VehName)
 				else
 					SetRichPresence("Landed at "..StreetName.." in a "..VehName)
 				end
