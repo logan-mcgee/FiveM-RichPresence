@@ -16,20 +16,25 @@ Citizen.CreateThread(function()
 				else
 					SetRichPresence("Standing on "..StreetName)
 				end
-			elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
-				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
+			elseif IsPedInAnyVehicle(PlayerPedId(), false) and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
+				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.23693629205)
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
-				if MPH > 50 then
+				if MPH > 50 and not IsPedOnAnyBike(PlayerPedId()) then
 					SetRichPresence("Speeding down "..StreetName.." In a "..VehName)
-				elseif MPH <= 50 and MPH > 0 then
+				elseif MPH <= 50 and MPH > 0 and not IsPedOnAnyBike(PlayerPedId()) then
 					SetRichPresence("Cruising down "..StreetName.." In a "..VehName)
-				elseif MPH == 0 then
+				elseif MPH == 0 and not IsPedOnAnyBike(PlayerPedId()) then
 					SetRichPresence("Parked on "..StreetName.." In a "..VehName)
+				elseif MPH > 50 and IsPedOnAnyBike(PlayerPedId()) then
+					SetRichPresence("Riding near "..StreetName.." In a "..VehName)
 				end
 			elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
+				local KT = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 1,9438444924406046)
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
-				if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 5.0 then
+				if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 25.0 then
 					SetRichPresence("Flying over "..StreetName.." in a "..VehName)
+				elseif 0 < IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) <= 25.0 and KT < 90 and GetLandingGearState(GetVehiclePedIsIn(PlayerPedId(), false)) == 0 then
+					SetRichPresence("Landing at "..StreetName.." in a "..VehName.." touchdown speed:" .. KT)
 				else
 					SetRichPresence("Landed at "..StreetName.." in a "..VehName)
 				end
