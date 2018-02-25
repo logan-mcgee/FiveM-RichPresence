@@ -1,4 +1,4 @@
-local WaitTime = 2500 -- How often do you want to update the status (In MS)
+local WaitTime = 5000 -- How often do you want to update the status (In MS)
 
 
 Citizen.CreateThread(function()
