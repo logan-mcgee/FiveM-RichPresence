@@ -9,9 +9,9 @@ Citizen.CreateThread(function()
 		if StreetHash ~= nil then
 			StreetName = GetStreetNameFromHashKey(StreetHash)
 			if IsPedOnFoot(PlayerPedId()) and not IsEntityInWater(PlayerPedId()) then
-				if IsPedRunning(PlayerPedId()) then
+				if IsPedRunning(PlayerPedId()) or GetEntitySpeed(PlayerPedId()) > 2.0 then
 					SetRichPresence("Running down "..StreetName)
-				elseif not IsPedRunning(PlayerPedId()) and GetEntitySpeed(PlayerPedId()) > 0.5 then
+				elseif not IsPedRunning(PlayerPedId()) and GetEntitySpeed(PlayerPedId()) > 1.0 and GetEntitySpeed(PlayerPedId()) < 2.0 then
 					SetRichPresence("Walking down "..StreetName)
 				else
 					SetRichPresence("Standing on "..StreetName)
