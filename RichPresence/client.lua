@@ -28,7 +28,11 @@ Citizen.CreateThread(function()
 				end
 			elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
-				SetRichPresence("Flying over "..StreetName.." in a "..VehName)
+				if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 5.0 then
+					SetRichPresence("Flying over "..StreetName.." in a "..VehName)
+				else
+					SetRichPresence("Landed at "..StreetName.." in a "..VehName)
+				end
 			elseif IsEntityInWater(PlayerPedId()) then
 				SetRichPresence("Swimming around")
 			elseif IsPedInAnyBoat(PlayerPedId()) and IsEntityInWater(GetVehiclePedIsUsing(PlayerPedId())) then
