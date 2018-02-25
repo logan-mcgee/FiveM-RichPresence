@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 				elseif not IsPedRunning(PlayerPedId()) and GetEntitySpeed(PlayerPedId()) > 0.5 then
 					SetRichPresence("Walking down "..StreetName)
 				else
-					SetRichPresence("Stood at "..StreetName)
+					SetRichPresence("Standing On "..StreetName)
 				end
 			elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
 				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
