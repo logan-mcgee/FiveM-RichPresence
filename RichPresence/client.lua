@@ -1,7 +1,11 @@
-local WaitTime = 10000 -- How often do you want to update the status (In MS)
+local WaitTime = 2500 -- How often do you want to update the status (In MS)
 
-
+local DiscordAppId = tonumber(GetConvar("RichAppId", "382624125287399424"))
+local DiscordAppAsset = GetConvar("RichAssetId", "fivem_large")
+	
 Citizen.CreateThread(function()
+	SetDiscordAppId(DiscordAppId)
+	SetDiscordRichPresenceAsset(DiscordAppAsset)
 	while true do
 		local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 		local StreetHash = GetStreetNameAtCoord(x, y, z)
@@ -22,7 +26,7 @@ Citizen.CreateThread(function()
 				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
 				if MPH > 50 then
-					SetRichPresence("Speeding down "..StreetName.." In a "..VehName)
+					SetRichPresence("Speeding down "..StreetName.." In a "..VehName.." at "..MPH.." MPH")
 				elseif MPH <= 50 and MPH > 0 then
 					SetRichPresence("Cruising down "..StreetName.." In a "..VehName)
 				elseif MPH == 0 then
