@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
 				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
 				if MPH > 50 then
-					SetRichPresence("Speeding down "..StreetName.." In a "..VehName.." at "..MPH.." MPH")
+					SetRichPresence("Speeding down "..StreetName.." In a "..VehName)
 				elseif MPH <= 50 and MPH > 0 then
 					SetRichPresence("Cruising down "..StreetName.." In a "..VehName)
 				elseif MPH == 0 then
