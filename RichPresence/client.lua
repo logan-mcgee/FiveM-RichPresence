@@ -2,6 +2,7 @@ local WaitTime = 2500 -- How often do you want to update the status (In MS)
 
 local DiscordAppId = tonumber(GetConvar("RichAppId", "382624125287399424"))
 local DiscordAppAsset = GetConvar("RichAssetId", "fivem_large")
+local UseKMH = GetConvar("RichUseKMH", false)
 	
 Citizen.CreateThread(function()
 	SetDiscordAppId(DiscordAppId)
@@ -23,13 +24,14 @@ Citizen.CreateThread(function()
 					SetRichPresence("Standing on "..StreetName)
 				end
 			elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
-				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
+				local VehSpeed = GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId()))
+				local CurSpeed = UseKMH and math.ceil(VehSpeed * 3.6) or math.ceil(VehSpeed * 2.236936)
 				local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(PlayerPedId()))))
-				if MPH > 50 then
+				if CurSpeed > 50 then
 					SetRichPresence("Speeding down "..StreetName.." In a "..VehName)
-				elseif MPH <= 50 and MPH > 0 then
+				elseif CurSpeed <= 50 and CurSpeed > 0 then
 					SetRichPresence("Cruising down "..StreetName.." In a "..VehName)
-				elseif MPH == 0 then
+				elseif CurSpeed == 0 then
 					SetRichPresence("Parked on "..StreetName.." In a "..VehName)
 				end
 			elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
